@@ -46,7 +46,7 @@ def structure_function_normal(nu, U0, U1, k, omega, z, N):
 buoyancy_frequency = 1.
 U0 = 0
 U1 = 0.15
-Ri = buoyancy_frequency / (U0 - U1)**2
+Ri = buoyancy_frequency**2 / (U0 - U1)**2
 nu = (Ri - 0.25)**0.5
 
 N = 100
