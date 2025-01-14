@@ -1,5 +1,5 @@
 # Create figures to be compared with Biswas and Shukla (2022) Figure 1
-# 10.1103/PhysRevFluids.7.023904)
+# 10.1103/PhysRevFluids.7.023904
 
 import numpy as np
 from scipy.special import gamma
