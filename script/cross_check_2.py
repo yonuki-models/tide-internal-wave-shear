@@ -1,5 +1,5 @@
-# Display structure functions for numerical in Biswas and Shukla (2022) Table 1
-# 10.1103/PhysRevFluids.7.023904)
+# Display structure functions for numerics in Biswas and Shukla (2022) Table 1
+# 10.1103/PhysRevFluids.7.023904
 
 import numpy as np
 from scipy.special import gamma
