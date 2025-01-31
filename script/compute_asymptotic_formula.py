@@ -28,7 +28,7 @@ def D_func(U0, U1, k, omega, N):
     nu = (1 / (U1 - U0)**2 - 0.25)**0.5
     Z0 = (k * U0 - omega) / (U1 - U0)
     Z1 = (k * U1 - omega) / (U1 - U0)
-    return np.sqrt(Z1 * Z0 + eps_i) * (Bessel_I(- 1j*nu, Z1, N)
+    return 1j * np.sqrt(Z1 * Z0 + eps_i) * (Bessel_I(- 1j*nu, Z1, N)
             * Bessel_I(1j*nu, Z0, N)
             - Bessel_I(1j*nu, Z1, N)
             * Bessel_I(-1j*nu, Z0, N))
@@ -57,22 +57,24 @@ nu = (1 / (U1 - U0)**2 - 0.25)**0.5
 
 h = 1.
 
-k = OT / U
+k = n * OT / U
 Z0 = (k * U0 - OT) / (U1 - U0)
 Z1 = (k * U1 - OT) / (U1 - U0)
-alpha = (- np.sqrt(k * Z1) * Bessel_I(1j * nu, Z1, N) / (gamma(- 1j * nu + 1))
+alpha = (- 1j * (k * Z1)**0.5 * Bessel_I(1j * nu, Z1, N) / (gamma(- 1j * nu + 1))
          * (k/2 + eps_i)**(- 1j * nu))
 
 J = jv(n, n * UT / U)
 D = D_func(U0, U1, n * OT / U, n * OT, N)
 
-term1 = ((U**2 / (n * OT * S))**(0.5 - 1j * nu)
-         * 1j**(-0.5) * np.exp(- np.pi * nu / 2) * alpha * x**(1j * nu)
+term1 = ((U**2 / (n * OT * S + eps_i))**(0.5 - 1j * nu)
+         * np.exp(- np.pi * nu / 2) * alpha
+         * (x + eps_i)**(1j * nu)
          / gamma(- 0.5 + 1j * nu))
-term2 = ((U**2 / (n * OT * S))**(0.5 + 1j * nu)
-         * 1j**(-0.5) * np.exp(np.pi * nu / 2) * alpha.conjugate() * x**(- 1j * nu)
+term2 = ((U**2 / (n * OT * S + eps_i))**(0.5 + 1j * nu)
+         * np.exp(np.pi * nu / 2) * alpha.conjugate()
+         * (x + eps_i)**(- 1j * nu)
          / gamma(- 0.5 - 1j * nu))
-psi = ((term1 + term2) * (U0 - U) * h * J * x**(-1.5)
+psi = ((term1 + term2) * (U0 - U) * h * J * 1j**(-0.5) * x**(-1.5)
        * np.exp(1j * n * OT * x / U) / D)
 
 fig = plt.figure(figsize=(6, 6))
