@@ -31,17 +31,17 @@ def Bessel_I(mu, z, N):
 
 
 def II(mu, z1, z2, N):
-    return (Bessel_I(mu, z1, N)
-            * Bessel_I(-mu, z2, N)
-            - Bessel_I(-mu, z1, N)
-            * Bessel_I(mu, z2, N))
+    return 1j * (Bessel_I(- mu, z1, N)
+            * Bessel_I(mu, z2, N)
+            - Bessel_I(mu, z1, N)
+            * Bessel_I(- mu, z2, N))
 
 
 def structure_function(nu, U0, U1, k, omega, z, N):
     Z1 = (k * U1 - omega) / (U1 - U0)
     U = U1 * z + U0 *(1 - z)
     Z = (k * U - omega) / (U1 - U0)
-    return ((Z + eps_i)**0.5 * II(1j * nu, Z1, Z, N))
+    return ((Z1 * Z + eps_i)**0.5 * II(1j * nu, Z1, Z, N))
 
 
 def structure_function_normal(nu, U0, U1, k, omega, z, N):
