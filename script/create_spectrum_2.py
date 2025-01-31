@@ -23,10 +23,10 @@ def Bessel_I(mu, z, N):
 
 
 def II(mu, z1, z2, N):
-    return (Bessel_I(mu, z1, N)
-            * Bessel_I(-mu, z2, N)
-            - Bessel_I(-mu, z1, N)
-            * Bessel_I(mu, z2, N))
+    return 1j * (Bessel_I(- mu, z1, N)
+            * Bessel_I(mu, z2, N)
+            - Bessel_I(mu, z1, N)
+            * Bessel_I(- mu, z2, N))
 
 
 buoyancy_frequency = 1.
@@ -56,7 +56,7 @@ for j in range(2*NK+1):
 Z0 = (k * U0 - omega) / (U1 - U0)
 Z1 = (k * U1 - omega) / (U1 - U0)
 
-func = (1j * II(1j * nu, Z0, Z1, N))
+func = II(1j * nu, Z1, Z0, N)
 
 fig = plt.figure(figsize=(8, 4))
 ax1 = fig.add_subplot(111)
